@@ -1,0 +1,6 @@
+[workspace]
+
+members = [
+    "bruges-rs",
+    "bruges-rspy"
+]
