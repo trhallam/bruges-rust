@@ -12,9 +12,13 @@ Future work should focus on bench marking and compatability tests.
 
 Requires the Rust Nightly build due to special options in `pyo3`.
 
-The package can be built on Windows with
+The rust source is built using `cargo-make`.
 
-`./make.bat`
+All packages can be built with
+
+```
+makers build-all
+```
 
 ### Python
 

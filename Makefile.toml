@@ -1,0 +1,62 @@
+
+[env]
+#CARGO_MAKE_CRATE_IS_WORKSPACE = true
+CARGO_MAKE_EXTEND_WORKSPACE_MAKEFILE = true
+
+[config]
+default_to_workspace = false
+
+[tasks.hello]
+script_runner = "@duckscript"
+script = "echo Hello World!"
+
+[tasks.build-all]
+dependencies = [
+    "build-rs-release",
+    "build-python",
+    "build-julia"
+]
+
+[tasks.build-rs-release]
+command = "cargo"
+args = ["build", "--release"]
+
+[tasks.build-python]
+linux_alias = "linux-build-python"
+windows_alias = "windows-build-python"
+#mac_alias = "mac-build-python"
+dependencies = ["build-rs-release"]
+
+[tasks.windows-build-python]
+script_runner = "@duckscript"
+script = [
+    "echo Copy bruges_rspy.dll to Python pyd",
+    "copied = cp ./target/release/bruges_rspy.dll ./python/bruges_rs/bruges_rspy.pyd"
+]
+
+[tasks.linux-build-python]
+script_runner = "@duckscript"
+script = [
+    "echo Copy libbruges_rspy.so to Python pyd",
+    "copied = cp ./target/release/libbruges_rspy.so ./python/bruges_rs/bruges_rspy.so"
+]
+
+[tasks.build-julia]
+linux_alias = "linux-build-julia"
+windows_alias = "windows-build-julia"
+#max_alias = "mac-build-julia"
+dependencies = ["build-rs-release"]
+
+[tasks.windows-build-julia]
+script_runner = "@duckscript"
+script = [
+    "echo Copy libbruges_rs.dll to julia/lib",
+    "copied = cp ./target/release/bruges_rs.dll ./julia/lib/libbruges_rs.dll"
+]
+
+[tasks.linux-build-julia]
+script_runner = "@duckscript"
+script = [
+    "echo Copy libbruges_rs.so to julia/lib",
+    "copied = cp ./target/release/libbruges_rs.so ./julia/lib/libbruges_rs.so"
+]

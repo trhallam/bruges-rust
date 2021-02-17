@@ -1,6 +1,11 @@
 module Reflection
 
-    global const libbruges_rs = joinpath(@__DIR__, "lib", "libbruges_rs.dll")
+    if Sys.islinux()
+        const lib_ext = ".so"
+    else # assume windows
+        const lib_ext = ".dll"
+    end
+    global const libbruges_rs = joinpath(@__DIR__, "lib", string("libbruges_rs", lib_ext))
     export critical_angles
 
     # calculate the critical angle between two mediums

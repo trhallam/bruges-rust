@@ -1,7 +1,7 @@
 use pyo3::prelude::*;
 use pyo3::wrap_pyfunction;
 
-use libbruges_rs::reflection;
+use bruges_rs::reflection;
 
 /// Formats the sum of two numbers as string.
 #[pyfunction]
@@ -14,7 +14,7 @@ pub fn init_reflection(module: &PyModule) -> PyResult<()> {
     Ok(())
 }
 
-/// A Python module implemented in Rust.
+// A Python module implemented in Rust.
 #[pymodule]
 fn reflection(py: Python, m: &PyModule) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(critical_angle, m)?)?;
